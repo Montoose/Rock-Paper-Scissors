@@ -9,7 +9,12 @@ function getComputerChoice() {
     else {
         return "Paper";
     }
+}
 
+function getHumanChoice() {
+    let choice = prompt("Make your choice! ");
+    return choice
 }
 
 console.log(getComputerChoice());
+console.log(getHumanChoice());
