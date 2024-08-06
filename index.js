@@ -1,8 +1,8 @@
+/* This program allows you to play Rock-Paper-Scissors within the browser console. */
+
 let humanScore = 0;
 let computerScore = 0;
 
-let humanChoice = getHumanChoice();
-let computerChoice = getComputerChoice();
 
 function getComputerChoice() {
     let number = Math.round(Math.random() * 100);
@@ -22,6 +22,15 @@ function getComputerChoice() {
 
 function getHumanChoice() {
     let choice = prompt("Make your choice! ");
+    if (choice == "scissors") {
+        console.log("You chose scissors!");
+    }
+    else if (choice == "rock") {
+        console.log("You chose rock!");
+    }
+    else {
+        console.log("You chose paper!");
+    }
     return choice.toLowerCase();
 }
 
@@ -31,28 +40,51 @@ function playRound (computer, human) {
     }
     else if (human == "rock" && computer == "paper") {
         console.log("Computer Wins!");
-        computerScore++;
+        return 0;
     }
     else if (human == "rock" && computer == "scissors") {
         console.log("Human Wins!");
-        humanScore++;
+        return 1;
     }
     else if (human == "paper" && computer == "rock") {
         console.log("Human Wins!");
-        humanScore++;
+        return 1;
     }
     else if (human == "paper" && computer == "scissors") {
         console.log("Computer Wins!");
-        computerScore++;
+        return 0;
     }
     else if (human == "scissors" && computer == "rock") {
         console.log("Computer Wins!");
-        computerScore++;
+        return 0;
     }
     else if (human == "scissors" && computer == "paper") {
         console.log("Human Wins!");
-        humanScore++;
+        return 1;
     }
 }
 
-playRound(humanChoice, computerChoice);
+function playGame() {
+    
+    let rounds = prompt("How many times do you want to play? ");
+
+    for (let i = 0; i < rounds; i++) {
+        let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice();
+        let winner = playRound(computerChoice, humanChoice);
+        if (winner == 1) {
+            humanScore++;
+        }
+        else if (winner == 0) {
+            computerScore++;
+        }
+    }
+
+    console.log(`Human score is: ${humanScore}!`);
+    console.log(`Computer score is: ${computerScore}!`);
+}
+
+playGame();
+
+    
+
