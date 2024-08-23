@@ -6,6 +6,11 @@ let scissors = document.getElementById("scissors");
 
 let gameBoard = document.getElementById("playBoard");
 let scoreBoard = document.getElementById("score");
+let winnerMessage = document.getElementById("winner-message");
+let modalBox = document.getElementById("final-box");
+let playAgain = document.getElementById("modalCloseButton");
+let playerMove = document.getElementById("player-move");
+let computerMove = document.getElementById("computer-move");
 
 let humanScore = 0;
 let computerScore = 0;
@@ -69,7 +74,12 @@ function outputScore() {
     let points = document.createElement("p");
     points.appendChild(document.createTextNode(`Human: ${humanScore} Computer: ${computerScore}`));
     scoreBoard.replaceChildren(points);
-    
+}
+
+function winnerModal(winner) {
+    if (winner === "human") winnerMessage.replaceChildren(document.createTextNode(`You win!`));
+    if (winner === "computer") winnerMessage.replaceChildren(document.createTextNode(`You lose!`));
+    modalBox.showModal();
 }
 
 function playGame(playerChoice) {
@@ -88,14 +98,21 @@ function playGame(playerChoice) {
         outputScore();
         
         if (humanScore == 5 || computerScore == 5) {
-            gameBoard.replaceChildren()
+            gameBoard.replaceChildren();
+            winnerModal("computer");
             humanScore = 0;
             computerScore = 0;
+            outputScore();
         }
 }
 
 rock.addEventListener("click", () => playGame("rock"));
 paper.addEventListener("click", () => playGame("paper"));
 scissors.addEventListener("click", () => playGame("scissors"));
+
+playAgain.addEventListener("click", () => {
+    modalBox.close();
+    outputScore();
+})
     
 
