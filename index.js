@@ -78,7 +78,7 @@ function outputScore() {
 
 function winnerModal(winner) {
     if (winner === "human") winnerMessage.replaceChildren(document.createTextNode(`You win!`));
-    if (winner === "computer") winnerMessage.replaceChildren(document.createTextNode(`You lose!`));
+    if (winner === "computer") winnerMessage.replaceChildren(document.createTextNode(`You lose ugly!`));
     modalBox.showModal();
 }
 
@@ -98,11 +98,20 @@ function playGame(playerChoice) {
         outputScore();
         
         if (humanScore == 5 || computerScore == 5) {
-            gameBoard.replaceChildren();
-            winnerModal("computer");
-            humanScore = 0;
-            computerScore = 0;
-            outputScore();
+            if (humanScore == 5) {
+                gameBoard.replaceChildren();
+                winnerModal("human");
+                humanScore = 0;
+                computerScore = 0;
+                outputScore();
+            }
+            else if (computerScore == 5) {
+                gameBoard.replaceChildren();
+                winnerModal("computer");
+                humanScore = 0;
+                computerScore = 0;
+                outputScore();
+            } 
         }
 }
 
