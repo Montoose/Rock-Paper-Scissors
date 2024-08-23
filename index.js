@@ -4,6 +4,8 @@ let rock = document.getElementById("rock");
 let paper = document.getElementById("paper");
 let scissors = document.getElementById("scissors");
 
+let gameBoard = document.getElementById("playBoard");
+
 let humanScore = 0;
 let computerScore = 0;
 
@@ -44,16 +46,32 @@ function playRound (computer, human) {
 }
 
 function decideWinner() {
-    if (humanScore > computerScore) console.log("Human wins!");
-    else console.log("Computer Wins!");
+    if (humanScore > computerScore) return true;
+    else return false;
+}
+
+function processHumanChoice(choice) {
+    let playerMove = document.createElement("p");
+    playerMove.appendChild(document.createTextNode(`your selection... ${choice.toUpperCase()}\n`));
+    gameBoard.appendChild(playerMove);
+}
+
+function processComputerChoice(choice) {
+    let computerMove = document.createElement("p");
+    computerMove.appendChild(document.createTextNode(`Computer has selected... ${choice.toUpperCase()}\n`));
+    gameBoard.appendChild(computerMove);
+    gameBoard.appendChild(document.createElement("br"));
 }
 
 function playGame(playerChoice) {
 
     if (humanScore <= 5 && computerScore <= 5) {
         let humanChoice = playerChoice;
-        console.log(playerChoice);
+        processHumanChoice(humanChoice);
+        
         let computerChoice = getComputerChoice();
+        processComputerChoice(computerChoice);
+
         let winner = playRound(computerChoice, humanChoice);
 
         if (winner == 1) humanScore++;
@@ -61,8 +79,10 @@ function playGame(playerChoice) {
     }
     else {
         decideWinner();
-    }
-    }
+        gameBoard.replaceChildren();
+        humanScore = 0;
+        computerScore = 0;
+    }}
 
 rock.addEventListener("click", () => playGame("rock"));
 paper.addEventListener("click", () => playGame("paper"));
